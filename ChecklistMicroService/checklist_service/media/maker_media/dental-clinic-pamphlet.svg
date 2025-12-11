@@ -1,0 +1,117 @@
+<svg viewBox="0 0 800 1100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="1100" fill="#f0f8ff"/>
+  
+  <!-- Header Section -->
+  <rect x="0" y="0" width="800" height="120" fill="#005980"/>
+  <text x="400" y="75" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="white" text-anchor="middle">TRUSTED FEMALE DOCTOR</text>
+  
+  <!-- Clinic Name Section -->
+  <rect x="0" y="120" width="800" height="130" fill="#004165"/>
+  <text x="400" y="180" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="white" text-anchor="middle">Sunshine Dental Care</text>
+  <text x="400" y="220" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#FFD700" text-anchor="middle">Multispeciality Dental Clinic</text>
+  
+  <!-- Doctor Information -->
+  <rect x="50" y="280" width="700" height="150" rx="10" fill="#e6f7ff"/>
+  <text x="400" y="330" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#004165" text-anchor="middle">Dr. Raziya Sayed</text>
+  <text x="400" y="370" font-family="Arial, sans-serif" font-size="24" fill="#004165" text-anchor="middle">(Dental Surgeon and Consultant)</text>
+  <text x="400" y="410" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#004165" text-anchor="middle">13+ Years of Experience in Dental Care</text>
+  
+  <!-- Tooth Logo -->
+  <g transform="translate(100,550) scale(0.9)">
+    <!-- Stylized tooth with network effect -->
+    <path d="M120,50 C180,30 200,40 220,100 C240,180 220,240 200,280 C190,300 170,280 160,240 C150,280 130,300 120,280 C100,240 80,180 100,100 C120,40 140,30 120,50" fill="none" stroke="#004165" stroke-width="3"/>
+    
+    <!-- Network lines -->
+    <circle cx="120" cy="60" r="4" fill="#004165"/>
+    <circle cx="180" cy="40" r="4" fill="#004165"/>
+    <circle cx="220" cy="120" r="4" fill="#004165"/>
+    <circle cx="200" cy="220" r="4" fill="#004165"/>
+    <circle cx="150" cy="250" r="4" fill="#004165"/>
+    <circle cx="100" cy="200" r="4" fill="#004165"/>
+    <circle cx="90" cy="120" r="4" fill="#004165"/>
+    <circle cx="140" cy="150" r="4" fill="#004165"/>
+    
+    <line x1="120" y1="60" x2="180" y2="40" stroke="#004165" stroke-width="1.5"/>
+    <line x1="180" y1="40" x2="220" y2="120" stroke="#004165" stroke-width="1.5"/>
+    <line x1="220" y1="120" x2="200" y2="220" stroke="#004165" stroke-width="1.5"/>
+    <line x1="200" y1="220" x2="150" y2="250" stroke="#004165" stroke-width="1.5"/>
+    <line x1="150" y1="250" x2="100" y2="200" stroke="#004165" stroke-width="1.5"/>
+    <line x1="100" y1="200" x2="90" y2="120" stroke="#004165" stroke-width="1.5"/>
+    <line x1="90" y1="120" x2="120" y2="60" stroke="#004165" stroke-width="1.5"/>
+    <line x1="120" y1="60" x2="140" y2="150" stroke="#004165" stroke-width="1.5"/>
+    <line x1="180" y1="40" x2="140" y2="150" stroke="#004165" stroke-width="1.5"/>
+    <line x1="220" y1="120" x2="140" y2="150" stroke="#004165" stroke-width="1.5"/>
+    <line x1="200" y1="220" x2="140" y2="150" stroke="#004165" stroke-width="1.5"/>
+    <line x1="100" y1="200" x2="140" y2="150" stroke="#004165" stroke-width="1.5"/>
+    <line x1="90" y1="120" x2="140" y2="150" stroke="#004165" stroke-width="1.5"/>
+    
+    <!-- Glow effect -->
+    <circle cx="140" cy="150" r="12" fill="#004165" opacity="0.3">
+      <animate attributeName="r" values="12;18;12" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Tagline -->
+  <text x="180" y="610" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFD700" text-anchor="middle">Creating Healthy Smiles</text>
+  
+  <!-- Contact Information -->
+  <rect x="400" y="480" width="350" height="80" rx="10" fill="#005980"/>
+  <image x="430" y="505" width="30" height="30" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik02LjYyIDEwLjc5YzEuNDQgMi44MyAzLjc2IDUuMTQgNi41OSA2LjU5bDIuMi0yLjJjLjI3LS4yNy42Ny0uMzYgMS4wMi0uMjQgMS4xMi4zNyAyLjMzLjU3IDMuNTcuNTcuNTUgMCAxIC40NSAxIDFWMjBjMCAuNTUtLjQ1IDEtMSAxLTkuMzkgMC0xNy03LjYxLTE3LTE3IDAtLjU1LjQ1LTEgMS0xaDMuNWMuNTUgMCAxIC40NSAxIDEgMCAxLjI1LjIgMi40NS41NyAzLjU3LjExLjM1LjAzLjc0LS4yNSAxLjAybC0yLjIgMi4yeiIvPjwvc3ZnPg=="/>
+  <text x="570" y="530" font-family="Arial, sans-serif" font-size="26" fill="white" text-anchor="middle">Call Today: 93814 97294</text>
+  
+  <!-- Why Choose Section -->
+  <rect x="400" y="570" width="350" height="360" rx="10" fill="#005980"/>
+  <text x="575" y="610" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="white" text-anchor="middle">Why Choose Dr. Raziya Sayed?</text>
+  
+  <circle cx="430" cy="650" r="6" fill="#FFD700"/>
+  <text x="450" y="655" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">13+ years of trusted dental experience</text>
+  
+  <circle cx="430" cy="690" r="6" fill="#FFD700"/>
+  <text x="450" y="695" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Warm, patient-friendly approach</text>
+  
+  <circle cx="430" cy="730" r="6" fill="#FFD700"/>
+  <text x="450" y="735" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Perfect for families and children</text>
+  
+  <circle cx="430" cy="770" r="6" fill="#FFD700"/>
+  <text x="450" y="775" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Personalized and gentle treatments</text>
+  
+  <circle cx="430" cy="810" r="6" fill="#FFD700"/>
+  <text x="450" y="815" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">State-of-the-art technology</text>
+  
+  <circle cx="430" cy="850" r="6" fill="#FFD700"/>
+  <text x="450" y="855" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Highest hygiene standards</text>
+  
+  <circle cx="430" cy="890" r="6" fill="#FFD700"/>
+  <text x="450" y="895" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Affordable treatment plans</text>
+  
+  <!-- Services List -->
+  <rect x="50" y="680" width="300" height="250" rx="10" fill="#005980"/>
+  <text x="200" y="720" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="white" text-anchor="middle">Our Services</text>
+  
+  <circle cx="80" cy="760" r="6" fill="#FFD700"/>
+  <text x="100" y="765" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Teeth Cleaning</text>
+  
+  <circle cx="80" cy="795" r="6" fill="#FFD700"/>
+  <text x="100" y="800" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Braces &amp; Orthodontics</text>
+  
+  <circle cx="80" cy="830" r="6" fill="#FFD700"/>
+  <text x="100" y="835" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Root Canals</text>
+  
+  <circle cx="80" cy="865" r="6" fill="#FFD700"/>
+  <text x="100" y="870" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Dental Implants</text>
+  
+  <circle cx="80" cy="900" r="6" fill="#FFD700"/>
+  <text x="100" y="905" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="start">Cosmetic Dentistry</text>
+  
+  <!-- Special Care Box -->
+  <rect x="50" y="940" width="700" height="100" rx="10" fill="#004165"/>
+  <text x="400" y="975" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="white" text-anchor="middle">Special Care for Every Patient!</text>
+  <text x="400" y="1015" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">Whether it's a simple checkup or a complete smile makeover,</text>
+  <text x="400" y="1040" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">Dr. Raziya Sayed ensures you feel comfortable, confident, and cared for.</text>
+  
+  <!-- Address Footer -->
+  <rect x="0" y="1050" width="800" height="50" fill="#003050"/>
+  <text x="400" y="1080" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">AN Square #101, Opp. Deccan Elite Hotel, Beside Bajaj Electronics, Pillar No. 214, Rajendra Nagar, Hyderabad-500 048. T.S.</text>
+</svg>

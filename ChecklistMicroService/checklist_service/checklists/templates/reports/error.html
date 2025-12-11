@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Flat Inspection Report</title>
+    <style>
+      body {
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 14px;
+        margin: 30px;
+        color: #2c3e50;
+        background: #fcfaf7;
+        line-height: 1.5;
+      }
+
+      h1 {
+        color: #2c3e50;
+        font-size: 2em;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      h2 {
+        color: #2c3e50;
+        font-size: 1.4em;
+        margin: 30px 0 15px 0;
+        font-weight: 600;
+        border-bottom: 3px solid #ffbe63;
+        padding-bottom: 8px;
+      }
+
+      .header-info {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #ffbe63;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .header-info p {
+        margin: 8px 0;
+        font-size: 15px;
+      }
+
+      .header-info strong {
+        color: #2c3e50;
+        font-weight: 600;
+      }
+
+      .summary {
+        background: #ffffff;
+        padding: 20px;
+        margin: 25px 0;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .summary h2 {
+        margin-top: 0;
+        color: #2c3e50;
+        border-bottom: 2px solid #ffbe63;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .summary-item {
+        text-align: center;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #dee2e6;
+      }
+
+      .summary-item.total {
+        background: #f8f9fa;
+      }
+      .summary-item.pending {
+        background: #fff3cd;
+      }
+      .summary-item.completed {
+        background: #d4edda;
+      }
+      .summary-item.rejected {
+        background: #f8d7da;
+      }
+
+      .summary-number {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2c3e50;
+      }
+
+      .summary-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      th {
+        background: linear-gradient(135deg, #ffbe63, #ff8c42);
+        color: #ffffff;
+        padding: 15px 12px;
+        font-weight: 600;
+        text-align: left;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #f1f3f4;
+        vertical-align: top;
+      }
+
+      tr:hover {
+        background: #f8f9fa;
+      }
+
+      .question-cell {
+        font-weight: 600;
+        color: #2c3e50;
+        min-width: 200px;
+      }
+
+      .status-cell {
+        text-align: center;
+        min-width: 120px;
+      }
+
+      .status-badge {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: inline-block;
+      }
+
+      .status-completed {
+        background: #d4edda;
+        color: #155724;
+      }
+      .status-pending_for_maker,
+      .status-pending-for-maker {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .status-pending_for_supervisor,
+      .status-pending-for-supervisor {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .status-pending_for_inspector,
+      .status-pending-for-inspector {
+        background: #cce5ff;
+        color: #004085;
+      }
+      .status-rejected_by_checker,
+      .status-rejected-by-checker {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .status-rejected_by_supervisor,
+      .status-rejected-by-supervisor {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .status-tetmpory_inspctor,
+      .status-tetmpory-inspctor {
+        background: #e2e3e5;
+        color: #383d41;
+      }
+      .status-pending_supervisor,
+      .status-pending-supervisor {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .status-pending_checker,
+      .status-pending-checker {
+        background: #cce5ff;
+        color: #004085;
+      }
+      .status-created {
+        background: #e2e3e5;
+        color: #383d41;
+      }
+
+      .attempt-count {
+        font-size: 11px;
+        color: #6c757d;
+        display: block;
+        margin-top: 4px;
+      }
+
+      .attempt-row {
+        border-left: 3px solid #ffbe63;
+        background: #fefefe;
+      }
+
+      .attempt-row.continuation {
+        border-left: 3px solid #dee2e6;
+      }
+
+      .question-separator {
+        border-bottom: 2px solid #2c3e50;
+        margin-bottom: 0;
+      }
+
+      .question-separator td {
+        padding-bottom: 2px;
+      }
+
+      .question-group {
+        page-break-inside: avoid;
+      }
+
+      .attempt-header {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+        padding: 6px 10px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+
+      .role-section {
+        margin-bottom: 8px;
+        padding: 8px 12px;
+        border-left: 4px solid #dee2e6;
+        background: #f8f9fa;
+        border-radius: 4px;
+      }
+
+      .role-section.maker {
+        border-left-color: #28a745;
+      }
+      .role-section.supervisor {
+        border-left-color: #ffc107;
+      }
+      .role-section.checker {
+        border-left-color: #007bff;
+      }
+
+      .role-title {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        letter-spacing: 0.5px;
+      }
+
+      .roles-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+        background: #ffffff;
+      }
+
+      .roles-table td {
+        padding: 0;
+        border: none;
+        vertical-align: top;
+        font-size: 13px;
+        word-wrap: break-word;
+        white-space: normal;
+      }
+
+      .role-name {
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .role-details {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 2px;
+      }
+
+      .remarks {
+        font-style: italic;
+        color: #495057;
+        margin-top: 4px;
+        font-size: 12px;
+      }
+
+      .timestamp {
+        font-size: 11px;
+        color: #6c757d;
+        margin-top: 4px;
+      }
+
+      .no-submissions {
+        color: #6c757d;
+        font-style: italic;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .user-generated-badge {
+        background: #e3f2fd;
+        color: #1565c0;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-left: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .media-attachment {
+        margin-top: 8px;
+      }
+
+      .media-attachment img {
+        max-width: 100px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+      }
+
+      @media print {
+        body {
+          margin: 15px;
+        }
+        .summary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        table {
+          page-break-inside: avoid;
+          table-layout: fixed;
+          width: 100%;
+        }
+        th {
+          background: #ffbe63 !important;
+        }
+        .question-group {
+          page-break-inside: avoid;
+        }
+        .attempt-row {
+          page-break-inside: avoid;
+        }
+        tr {
+          page-break-inside: avoid;
+        }
+        .question-cell {
+          width: 25% !important;
+        }
+        .status-cell {
+          width: 15% !important;
+        }
+        .attempt-details-cell {
+          width: 60% !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-info">
+      <h1>Inspection Report - Flat {{ flat.number }}</h1>
+      <p><strong>Project:</strong> {{ flat.project_name|default:"-" }}</p>
+      <p><strong>Building:</strong> {{ flat.building_name }}</p>
+      <p><strong>Floor:</strong> {{ flat.level_name }}</p>
+      <p><strong>Flattype:</strong> {{ flat.flattype_name }}</p>
+      <p><strong>Generated On:</strong> {{ report_date }}</p>
+
+      {% if completion.is_completed %}
+      <p>
+        <strong>Status:</strong>
+        Completed by {{ completion.completed_by_name|default:"-" }} on {{
+        completion.completed_at|date:"d-m-Y H:i" }} (StageHistory #{{
+        completion.stagehistory_id }})
+      </p>
+      <p>
+        <strong>Handover (CRM):</strong>
+        {% if completion.crm_hoto %} Done{% if completion.crm_date %} on {{
+        completion.crm_date|date:"d-m-Y" }}{% endif %} {% if
+        completion.crm_completed_by_name %} by {{
+        completion.crm_completed_by_name }}{% endif %} {% else %} Not done {%
+        endif %}
+      </p>
+      {% else %}
+      <p><strong>Status:</strong> In Progress</p>
+      {% endif %}
+    </div>
+
+    <div class="summary">
+      <h2>Summary</h2>
+      <div class="summary-grid">
+        <div class="summary-item total">
+          <div class="summary-number">
+            {{ summary.total_checkpoints|default:"0" }}
+          </div>
+          <div class="summary-label">Total Checkpoints</div>
+        </div>
+        <div class="summary-item pending">
+          <div class="summary-number">{{ summary.pending|default:"0" }}</div>
+          <div class="summary-label">Pending</div>
+        </div>
+        <div class="summary-item completed">
+          <div class="summary-number">{{ summary.completed|default:"0" }}</div>
+          <div class="summary-label">Completed</div>
+        </div>
+        <div class="summary-item rejected">
+          <div class="summary-number">{{ summary.rejected|default:"0" }}</div>
+          <div class="summary-label">Rejected</div>
+        </div>
+      </div>
+    </div>
+
+    {% if stages %} {% for stage in stages %}
+<h2 style="color: #ff8c42; margin-top: 45px;">
+    Stage:
+    {% if stage.stage_name %}{{ stage.stage_name }}{% else %}Stage {{ stage.stage_id }}{% endif %}
+</h2>
+
+    {% for checklist in stage.checklists %}
+    <h2>
+      Checklist: {{ checklist.name }} {% if checklist.is_user_generated %}
+      <span class="user-generated-badge">User Generated</span>
+      {% endif %}
+    </h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%">Question</th>
+          <th style="width: 15%">Status</th>
+          <th style="width: 60%">Attempt Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in checklist.items %} {% if item.submissions %} {% for sub
+        in item.submissions %}
+        <tr
+          class="attempt-row {% if not forloop.first %}continuation{% endif %} {% if forloop.first %}question-group{% endif %}"
+        >
+          {% if forloop.first %}
+          <td class="question-cell">{{ item.title }}</td>
+          <td class="status-cell">
+            <span class="status-badge status-{{ item.status|slugify }}">
+              {{ item.status|title }}
+            </span>
+            <span class="attempt-count"
+              >({{ item.submissions|length }} attempt{{
+              item.submissions|length|pluralize }})</span
+            >
+          </td>
+          {% else %}
+          <td class="attempt-details-cell"></td>
+          <td></td>
+          {% endif %}
+          <td class="attempt-details-cell">
+            <div class="attempt-header">Attempt {{ forloop.counter }}</div>
+
+            <!-- Maker Section -->
+            {% if sub.maker_name or sub.maker_remarks or sub.maker_at or
+            sub.maker_media %}
+            <div class="role-section maker">
+              <div class="role-title">👷 MAKER</div>
+              {% if sub.maker_name %}
+              <div class="role-name">{{ sub.maker_name }}</div>
+              {% endif %} {% if sub.maker_remarks %}
+              <div class="remarks">Remarks: {{ sub.maker_remarks }}</div>
+              {% endif %} {% if sub.maker_at %}
+              <div class="timestamp">{{ sub.maker_at|date:"d-m-Y H:i" }}</div>
+              {% endif %} {% if sub.maker_media %}
+              <div class="media-attachment">
+                <img src="{{ sub.maker_media }}" />
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Supervisor Section -->
+            {% if sub.supervisor_name or sub.supervisor_remarks or
+            sub.supervised_at or sub.reviewer_photo %}
+            <div class="role-section supervisor">
+              <div class="role-title">👨💼 SUPERVISOR</div>
+              {% if sub.supervisor_name %}
+              <div class="role-name">{{ sub.supervisor_name }}</div>
+              {% endif %} {% if sub.supervisor_remarks %}
+              <div class="remarks">Remarks: {{ sub.supervisor_remarks }}</div>
+              {% endif %} {% if sub.supervised_at %}
+              <div class="timestamp">
+                {{ sub.supervised_at|date:"d-m-Y H:i" }}
+              </div>
+              {% endif %} {% if sub.reviewer_photo %}
+              <div class="media-attachment">
+                <img src="{{ sub.reviewer_photo }}" />
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Checker Section -->
+            {% if sub.checker_name or sub.checker_remarks or sub.checked_at or
+            sub.inspector_photo or sub.status %}
+            <div class="role-section checker">
+              <div class="role-title">✅ CHECKER</div>
+              {% if sub.checker_name %}
+              <div class="role-name">{{ sub.checker_name }}</div>
+              {% endif %} {% if sub.status %}
+              <div class="role-details">Status: {{ sub.status|title }}</div>
+              {% endif %} {% if sub.checker_remarks %}
+              <div class="remarks">Remarks: {{ sub.checker_remarks }}</div>
+              {% endif %} {% if sub.checked_at %}
+              <div class="timestamp">{{ sub.checked_at|date:"d-m-Y H:i" }}</div>
+              {% endif %} {% if sub.inspector_photo %}
+              <div class="media-attachment">
+                <img src="{{ sub.inspector_photo }}" />
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %} {% if not forloop.last %}
+        <tr class="question-separator">
+          <td colspan="3"></td>
+        </tr>
+        {% endif %} {% else %}
+        <tr class="attempt-row question-group">
+          <td class="question-cell">{{ item.title }}</td>
+          <td class="status-cell">
+            <span class="status-badge status-{{ item.status|slugify }}">
+              {{ item.status|title }}
+            </span>
+            <span class="attempt-count">(0 attempts)</span>
+          </td>
+          <td class="attempt-details-cell no-submissions">No submissions</td>
+        </tr>
+        {% if not forloop.last %}
+        <tr class="question-separator">
+          <td colspan="3"></td>
+        </tr>
+        {% endif %} {% endif %} {% endfor %}
+      </tbody>
+    </table>
+    {% endfor %} {% endfor %} {% else %} {% for checklist in checklists %}
+    <h2>
+      Checklist: {{ checklist.name }} {% if checklist.is_user_generated %}
+      <span class="user-generated-badge">User Generated</span>
+      {% endif %}
+    </h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%">Question</th>
+          <th style="width: 15%">Status</th>
+          <th style="width: 60%">Attempt Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in checklist.items %} {% if item.submissions %} {% for sub
+        in item.submissions %}
+        <tr
+          class="attempt-row {% if not forloop.first %}continuation{% endif %} {% if forloop.first %}question-group{% endif %}"
+        >
+          {% if forloop.first %}
+          <td class="question-cell">{{ item.title }}</td>
+          <td class="status-cell">
+            <span class="status-badge status-{{ item.status|slugify }}">
+              {{ item.status|title }}
+            </span>
+            <span class="attempt-count"
+              >({{ item.submissions|length }} attempt{{
+              item.submissions|length|pluralize }})</span
+            >
+          </td>
+          {% else %}
+          <td class="attempt-details-cell"></td>
+          <td></td>
+          {% endif %}
+          <td class="attempt-details-cell">
+            <div class="attempt-header">Attempt {{ forloop.counter }}</div>
+
+            <!-- Maker Section -->
+            {% if sub.maker_name or sub.maker_remarks or sub.maker_at or
+            sub.maker_media %}
+            <div class="role-section maker">
+              <div class="role-title">👷 MAKER</div>
+              {% if sub.maker_name %}
+              <div class="role-name">{{ sub.maker_name }}</div>
+              {% endif %} {% if sub.maker_remarks %}
+              <div class="remarks">Remarks: {{ sub.maker_remarks }}</div>
+              {% endif %} {% if sub.maker_at %}
+              <div class="timestamp">{{ sub.maker_at|date:"d-m-Y H:i" }}</div>
+              {% endif %} {% if sub.maker_media %}
+              <div class="media-attachment">
+                <img src="{{ sub.maker_media }}" />
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Supervisor Section -->
+            {% if sub.supervisor_name or sub.supervisor_remarks or
+            sub.supervised_at or sub.reviewer_photo %}
+            <div class="role-section supervisor">
+              <div class="role-title">👨💼 SUPERVISOR</div>
+              {% if sub.supervisor_name %}
+              <div class="role-name">{{ sub.supervisor_name }}</div>
+              {% endif %} {% if sub.supervisor_remarks %}
+              <div class="remarks">Remarks: {{ sub.supervisor_remarks }}</div>
+              {% endif %} {% if sub.supervised_at %}
+              <div class="timestamp">
+                {{ sub.supervised_at|date:"d-m-Y H:i" }}
+              </div>
+              {% endif %} {% if sub.reviewer_photo %}
+              <div class="media-attachment">
+                <img src="{{ sub.reviewer_photo }}" />
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Checker Section -->
+            {% if sub.checker_name or sub.checker_remarks or sub.checked_at or
+            sub.inspector_photo or sub.status %}
+            <div class="role-section checker">
+              <div class="role-title">✅ CHECKER</div>
+              {% if sub.checker_name %}
+              <div class="role-name">{{ sub.checker_name }}</div>
+              {% endif %} {% if sub.status %}
+              <div class="role-details">Status: {{ sub.status|title }}</div>
+              {% endif %} {% if sub.checker_remarks %}
+              <div class="remarks">Remarks: {{ sub.checker_remarks }}</div>
+              {% endif %} {% if sub.checked_at %}
+              <div class="timestamp">{{ sub.checked_at|date:"d-m-Y H:i" }}</div>
+              {% endif %} {% if sub.inspector_photo %}
+              <div class="media-attachment">
+                <img src="{{ sub.inspector_photo }}" />
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %} {% if not forloop.last %}
+        <tr class="question-separator">
+          <td colspan="3"></td>
+        </tr>
+        {% endif %} {% else %}
+        <tr class="attempt-row question-group">
+          <td class="question-cell">{{ item.title }}</td>
+          <td class="status-cell">
+            <span class="status-badge status-{{ item.status|slugify }}">
+              {{ item.status|title }}
+            </span>
+            <span class="attempt-count">(0 attempts)</span>
+          </td>
+          <td class="attempt-details-cell no-submissions">No submissions</td>
+        </tr>
+        {% if not forloop.last %}
+        <tr class="question-separator">
+          <td colspan="3"></td>
+        </tr>
+        {% endif %} {% endif %} {% endfor %}
+      </tbody>
+    </table>
+    {% endfor %} {% endif %}
+  </body>
+</html>
